@@ -10,8 +10,10 @@ public class Obj {
 	private ArrayList<Vert3> verticies = new ArrayList<Vert3>();
 	private ArrayList<Face> faces = new ArrayList<Face>();
 	
-	public Vert3 OriginToParent;
-	
+	public Vector3 Position;
+	public Vector3 Scale;
+	public Vector3 Rotation;
+
 	
 	
 	void RemoveChild (Obj child){
@@ -19,10 +21,12 @@ public class Obj {
 	}
 	
 	public void Delete(){
-		parent.RemoveChild(this);
+		if(parent!=null){
+			parent.RemoveChild(this);
+		}
 		
 		for(Obj child : children){
-			Delete();
+			child.Delete();
 		}
 	}
 
