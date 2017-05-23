@@ -10,11 +10,11 @@ import com.J00nzu.Java3DEngine.graphics.lowlvl.*;
 
 public class TriangleTest {
 	
-	final int width = 800;
-	final int height = 600;
-	final int multi = 50;
-	final int offsetX = width/2;
-	final int offsetY = height/2;
+	static final int width = 800;
+	static final int height = 600;
+	static final int multi = 50;
+	static final int offsetX = width/2;
+	static final int offsetY = height/2;
 
 	
 	
@@ -25,9 +25,9 @@ public class TriangleTest {
 		JFrame frame = new JFrame();
 		JPanel panel = new JPanel();
 		
-		frame.setSize(800, 600);
+		frame.setSize(width, height);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+		frame.setIgnoreRepaint(true);
 		
 		frame.add(panel);
 		
@@ -37,9 +37,9 @@ public class TriangleTest {
 		 * TEST CODE HERE
 		 */
 		
-		Vert3 a = new Vert3(0, 1 ,0);
-		Vert3 b = new Vert3(-1, 0 ,0);
-		Vert3 c = new Vert3(1, 0 ,0);
+		Vert3 a = new Vert3(2, 1 ,0);
+		Vert3 b = new Vert3(1, 0 ,0);
+		Vert3 c = new Vert3(3, 0 ,0);
 		
 		Face face = new Face(a,b,c);
 		
@@ -51,11 +51,28 @@ public class TriangleTest {
 		
 		
 		Graphics g = panel.getGraphics();
+		
+		Transformatrix tf = new Transformatrix();
+		tf.rotate(new Vector3(0 , 0, 0.3f));
 
 		
 		while(true){
 			
+			g.clearRect(0, 0, width, height);
 			
+			drawFace(g, cf1);
+			
+			a.ApplyTransformatrix(tf);
+			b.ApplyTransformatrix(tf);
+			c.ApplyTransformatrix(tf);
+
+
+			try {
+				Thread.sleep(50);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 		}
 		
@@ -70,7 +87,7 @@ public class TriangleTest {
 	}
 	
 	
-	public void DrawFace(Graphics g, ColoredFace cf){
+	public static void drawFace(Graphics g, ColoredFace cf){
 		
 		g.setColor(cf.color);
 		

@@ -14,13 +14,15 @@ public class Transformatrix {
 	Matrix4 mat4;
 
 	public Transformatrix() {
-		//mat4 = new Matrix4();
-		
 		mat4 = baseMatrix.Clone();
 	}
 
 	public Transformatrix(Transformatrix clone) {
 		mat4 = clone.mat4.Clone();
+	}
+	
+	public Transformatrix(Matrix4 matrix) {
+		mat4 = matrix;
 	}
 
 	public void translate(Vector3 translation) {

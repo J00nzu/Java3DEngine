@@ -28,11 +28,10 @@ public class Matrix4 {
 		for(int x=0; x < SIZE; x++){
 			for(int y=0; y < SIZE; y++){
 				for(int i=0; i < SIZE; i++){
-					result.matrix[y][x] += this.matrix[y][i]*other.matrix[i][x];
+					result.matrix[y][x] += this.matrix[y][i] * other.matrix[i][x];
 				}
 			}
 		}
-		
 		return result;
 	}
 	
