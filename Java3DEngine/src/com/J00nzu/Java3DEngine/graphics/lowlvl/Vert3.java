@@ -1,23 +1,24 @@
+package com.J00nzu.Java3DEngine.graphics.lowlvl;
 
-public class Vertex {
+public class Vert3 {
 	
 	public float x, y, z;
 	
-	public Vertex(Vertex toClone) {
+	public Vert3(Vert3 toClone) {
 		super();
 		this.x = toClone.x;
 		this.y = toClone.y;
 		this.z = toClone.z;
 	}
 	
-	public Vertex(){
+	public Vert3(){
 		super();
 		this.x = 0;
 		this.y = 0;
 		this.z = 0;
 	}
 	
-	public Vertex(float x, float y, float z) {
+	public Vert3(float x, float y, float z) {
 		super();
 		this.x = x;
 		this.y = y;
@@ -25,8 +26,8 @@ public class Vertex {
 	}
 
 
-	public Vertex Add(Vertex other){
-		Vertex out = new Vertex(this);
+	public Vert3 Add(Vert3 other){
+		Vert3 out = new Vert3(this);
 		out.x += other.x;
 		out.y += other.y;
 		out.z += other.z;
@@ -34,8 +35,8 @@ public class Vertex {
 		return out;
 	}
 	
-	public Vertex Subtract(Vertex other){
-		Vertex out = new Vertex(this);
+	public Vert3 Subtract(Vert3 other){
+		Vert3 out = new Vert3(this);
 		out.x -= other.x;
 		out.y -= other.y;
 		out.z -= other.z;
@@ -43,8 +44,8 @@ public class Vertex {
 		return out;
 	}
 	
-	public Vertex Multiply(Vertex other){
-		Vertex out = new Vertex(this);
+	public Vert3 Multiply(Vert3 other){
+		Vert3 out = new Vert3(this);
 		out.x *= other.x;
 		out.y *= other.y;
 		out.z *= other.z;
@@ -52,8 +53,8 @@ public class Vertex {
 		return out;
 	}
 	
-	public Vertex Divide(Vertex other){
-		Vertex out = new Vertex(this);
+	public Vert3 Divide(Vert3 other){
+		Vert3 out = new Vert3(this);
 		out.x /= other.x;
 		out.y /= other.y;
 		out.z /= other.z;
