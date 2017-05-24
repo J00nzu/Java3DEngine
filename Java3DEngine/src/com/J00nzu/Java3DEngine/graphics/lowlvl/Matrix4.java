@@ -35,7 +35,7 @@ public class Matrix4 {
 		return result;
 	}
 	
-	public Matrix4 Clone(){
+	public Matrix4 clone(){
 		Matrix4 result = new Matrix4();
 		for(int x=0; x < SIZE; x++){
 			for(int y=0; y < SIZE; y++){
@@ -79,6 +79,35 @@ public class Matrix4 {
 		}
 		
 		return sb.toString();
+	}
+	
+	@Override
+	public boolean equals(Object object){
+		if(object instanceof Matrix4){
+			Matrix4 other = (Matrix4)object;
+			
+			for(int y=0; y < 4; y++){
+				for(int x=0; x < 4; x++){
+					
+					if(matrix[y][x] != other.matrix[y][x]){
+						return false;
+					}
+					
+				}
+			}
+			
+		}else{
+			return false;
+		}
+		
+		return true;
+	}
+	
+	@Override
+	public int hashCode(){
+		int hash = java.util.Arrays.deepHashCode( matrix );
+		
+		return hash;
 	}
 
 }

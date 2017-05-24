@@ -14,6 +14,23 @@ public abstract class Obj {
 	public Obj(){
 		
 	}
+	
+	public Vector3 getWorldPosition(){
+		Obj curr = this;
+		Vector3 worldPos = new Vector3();
+		do{
+			worldPos = worldPos.multiply(curr.transform.scale);
+			worldPos = worldPos.add(curr.transform.position);
+			curr = curr.parent;
+			
+		}while(curr!=null);
+		
+		return worldPos;
+	}
+	
+	public ArrayList<Obj> getChildren(){
+		return children;
+	}
 
 	public void AddChild(Obj child){
 		if(child != null){

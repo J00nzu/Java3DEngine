@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 
 import com.J00nzu.Java3DEngine.graphics.lowlvl.*;
 
-public class ProjectionTest {
+public class ViewportTest {
 	
 	static final int width = 800;
 	static final int height = 600;
@@ -41,7 +41,7 @@ public class ProjectionTest {
 		Vert3 b = new Vert3(1, 0 ,-1);
 		Vert3 c = new Vert3(-1, 0 ,-1);
 		Vert3 d = new Vert3(-1, 0 ,1);
-		Vert3 e = new Vert3(0, 1.5f ,0);
+		Vert3 e = new Vert3(0, 1 ,0);
 		
 		Face face_eab = new Face(e,a,b);
 		Face face_ebc = new Face(e,b,c);
@@ -70,20 +70,36 @@ public class ProjectionTest {
 		
 		GraphicsObj pyramid2 = pyramid.copy();
 		
-		pyramid.transform.position = new Vector3(4,-2,-5);
+		GraphicsObj pyramid3 = pyramid.copy();
 		
-		pyramid2.transform.position = new Vector3(-2,-2,-20);
+		pyramid.transform.position = new Vector3(0,-5,-10);
 		
+		pyramid.transform.scale = new Vector3(1,1,1);
 		
-		ArrayList<GraphicsObj> drawables = new ArrayList<GraphicsObj>();
+		pyramid2.transform.position = new Vector3(2,-5,-20);
 		
-		drawables.add(pyramid);
-		drawables.add(pyramid2);
+		pyramid2.transform.scale = new Vector3(1f, 1f, 1f);
+		
+		pyramid3.transform.position = new Vector3(0,1.5f,0);
+		
+		pyramid3.transform.scale = new Vector3(0.5f, 0.5f, 0.5f);
 
 		
 		PerspectiveCamera cam = new PerspectiveCamera();
 		
+		cam.transform.position.z = 0;
 		
+		World world = new World();
+		
+		world.AddChild(pyramid);
+		world.AddChild(pyramid2);
+		pyramid2.AddChild(pyramid3);
+		
+		Viewport view = new Viewport(world, cam);
+		
+		System.out.println(pyramid.getWorldPosition());
+		System.out.println(pyramid2.getWorldPosition());
+		System.out.println(pyramid3.getWorldPosition());
 		
 		frame.setVisible(true);
 		
@@ -92,62 +108,22 @@ public class ProjectionTest {
 		
 		
 		while(true){
-			
 			g.clearRect(0, 0, width, height);
 			
-			ArrayList<Face> toDraw = new ArrayList<Face>();
+			pyramid2.transform.position.x += 0.03;
+			//cam.transform.rotation.z+=0.005;
+			//pyramid.transform.rotation.z+=0.005;
+			pyramid3.transform.rotation.y+=0.01;
+
 			
-			for(GraphicsObj obj : drawables){
-				
-				//obj.transform.rotation.z += 0.01f;
-				//obj.transform.rotation.x = -(float)Math.PI/16;
-				obj.transform.rotation.y += 0.005f;
-				//obj.transform.position.x += 0.01f;
-				
-				//obj.transform.position.z += 0.01f;
-				
-				Transformatrix tf = new Transformatrix();
-				
-				Transformatrix camtrix = cam.GetProjectionMatrix();
-				
-				tf.scale(obj.transform.scale);
-				tf.rotate(obj.transform.rotation);
-				tf.translate(obj.transform.position);
-				
-				tf.multiply(camtrix);
-				
-				for(Vert3 vert : obj.getVerticies()){
-					vert.ViewTransform(tf);
-				}
-				
-				
-				for(Face face : obj.getFaces()){
-					
-					boolean clipping = false;
-					
-					for(Vert3 vert : face){
-						
-						if(vert.viewX < -1 || vert.viewX> 1 || vert.viewY < -1 || vert.viewY > 1){
-							clipping = true;
-						}
-					}
-					
-					if(!clipping){
-						toDraw.add(face);
-					}else{
-						drawFace(g, Color.BLUE, face);
-					}
-					
-					
-				}
-	
-			}
-			
-			
+			ArrayList<Face> toDraw = view.process();
 			
 			for(Face face : toDraw){
 				drawFace(g, Color.RED, face);
 			}
+			
+			System.out.println(pyramid2.getVerticies().get(0));
+
 
 
 

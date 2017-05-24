@@ -30,6 +30,7 @@ public class Vert3 extends Vector3{
 		
 		float w = result[3];
 		
+		
 		this.x = result[0]/w;
 		this.y = result[1]/w;
 		this.z = result[2]/w;
@@ -48,9 +49,11 @@ public class Vert3 extends Vector3{
 		
 		float w = result[3];
 		
+		
 		this.viewX = result[0]/w;
 		this.viewY = result[1]/w;
 		this.viewZ = result[2]/w;
+
 	}
 
 	@Override

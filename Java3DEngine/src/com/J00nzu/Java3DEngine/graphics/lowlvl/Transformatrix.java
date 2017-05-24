@@ -14,11 +14,11 @@ public class Transformatrix {
 	Matrix4 mat4;
 
 	public Transformatrix() {
-		mat4 = baseMatrix.Clone();
+		mat4 = baseMatrix.clone();
 	}
 
 	public Transformatrix(Transformatrix clone) {
-		mat4 = clone.mat4.Clone();
+		mat4 = clone.mat4.clone();
 	}
 	
 	public Transformatrix(Matrix4 matrix) {
@@ -39,8 +39,11 @@ public class Transformatrix {
 		if(translation==null){
 			return;
 		}
+		if( translation.x==0 && translation.y==0 && translation.z==0){
+			return;
+		}
 		
-		Matrix4 transMatrix = baseMatrix.Clone();
+		Matrix4 transMatrix = baseMatrix.clone();
 
 		transMatrix.matrix[TRANS][X] = translation.x;
 		transMatrix.matrix[TRANS][Y] = translation.y;
@@ -55,7 +58,7 @@ public class Transformatrix {
 		}
 
 		if (rotation.x != 0) {
-			Matrix4 rotMatrix = baseMatrix.Clone();
+			Matrix4 rotMatrix = baseMatrix.clone();
 			float rot = rotation.x;
 			
 			rotMatrix.matrix[Y][Y] = (float)Math.cos(rot);
@@ -67,7 +70,7 @@ public class Transformatrix {
 		}
 
 		if (rotation.y != 0) {
-			Matrix4 rotMatrix = baseMatrix.Clone();
+			Matrix4 rotMatrix = baseMatrix.clone();
 			float rot = rotation.y;
 			
 			rotMatrix.matrix[X][X] = (float)Math.cos(rot);
@@ -79,7 +82,7 @@ public class Transformatrix {
 		}
 
 		if (rotation.z != 0) {
-			Matrix4 rotMatrix = baseMatrix.Clone();
+			Matrix4 rotMatrix = baseMatrix.clone();
 			float rot = rotation.z;
 			
 			rotMatrix.matrix[X][X] = (float)Math.cos(rot);
@@ -96,7 +99,11 @@ public class Transformatrix {
 			return;
 		}
 		
-		Matrix4 scaleMatrix = baseMatrix.Clone();
+		if( scaling.x==1 && scaling.y==1 && scaling.z==1){
+			return;
+		}
+		
+		Matrix4 scaleMatrix = baseMatrix.clone();
 
 		scaleMatrix.matrix[X][X] = scaling.x;
 		scaleMatrix.matrix[Y][Y] = scaling.y;
@@ -105,9 +112,54 @@ public class Transformatrix {
 		this.mat4 = mat4.Multiply(scaleMatrix);
 	}
 	
+	public void inverse(){
+		for(int y=0; y < 4; y++){
+			for(int x=0; x < 4; x++){
+				mat4.matrix[y][x] = -mat4.matrix[y][x];
+			}
+		}
+	}
+	
+	/**
+	 * Defaults the matrix to be the basematrix: <br> <br>
+	 * <pre>
+	 * | 1 0 0 0 |
+	 * | 0 1 0 0 |
+	 * | 0 0 1 0 |
+	 * | 0 0 0 1 |
+	 * </pre>
+	 */
+	public void clear(){
+		for(int y=0; y < 4; y++){
+			for(int x=0; x < 4; x++){
+				mat4.matrix[y][x] = x==y?1:0;
+			}
+		}
+	}
+	
 	public String toString(){
 		
 		return mat4.toString();
+	}
+	
+	@Override
+	public boolean equals(Object object){
+		if(object instanceof Transformatrix){
+			Transformatrix other = (Transformatrix)object;
+			
+			return mat4.equals(other.mat4);
+		}else{
+			return false;
+		}
+	}
+	
+	@Override
+	public int hashCode(){
+		//inverse hash of mat4 to not mix up with mat4's
+		
+		int hash = ~mat4.hashCode();
+		
+		return hash;
 	}
 
 }

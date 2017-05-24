@@ -18,14 +18,33 @@ public class PerspectiveCamera extends Camera{
     	
     	Matrix4 projection = new Matrix4();
     	
-        float scale = (float) (1 / Math.tan(FOV * 0.5 * Math.PI / 180)); 
+        float scaleY = (float) (1 / Math.tan(FOV * 0.5 * Math.PI / 180)); 
+        float scaleX = (float) (1 / (displayRatio * Math.tan(FOV * 0.5 * Math.PI / 180))); 
         
-        projection.matrix[0][0] = scale; // scale the x coordinates of the projected point 
-        projection.matrix[1][1] = scale / displayRatio; // scale the y coordinates of the projected point 
+        projection.matrix[0][0] = scaleX; // scale the x coordinates of the projected point 
+        projection.matrix[1][1] = scaleY; // scale the y coordinates of the projected point 
+        
+        
         projection.matrix[2][2] = -far / (far - near); // used to remap z to [0,1] 
         projection.matrix[3][2] = -far * near / (far - near); // used to remap z [0,1] 
+        
         projection.matrix[2][3] = -1; // set w = -z 
         projection.matrix[3][3] = 0;
+        
+        //TODO Z axis doesn't map correctly maybe... Needs testing
+        
+        
+        /*
+        float zNear = near;
+        float zFar = far;
+        float zRange = zNear - zFar;
+        
+        projection.matrix[2][2] = (-zNear - zFar) / zRange;
+        projection.matrix[2][3] = 2.0f * zFar * zNear / zRange;
+        
+        projection.matrix[3][2] = 1.0f; 
+        projection.matrix[3][3] = 0;
+        */
         
         Transformatrix matrix = new Transformatrix(projection);
         
