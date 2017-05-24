@@ -5,6 +5,7 @@ public class Vert3 extends Vector3{
 	public float viewX;
 	public float viewY;
 	public float viewZ;
+	public float viewW = 1;
 	
 	public Vert3(Vector3 toClone) {
 		super(toClone);
@@ -47,20 +48,53 @@ public class Vert3 extends Vector3{
 			}
 		}
 		
-		float w = result[3];
+		this.viewW = result[3];
 		
+		this.viewX = result[0]/viewW;
+		this.viewY = result[1]/viewW;
+		this.viewZ = result[2]/viewW;
 		
-		this.viewX = result[0]/w;
-		this.viewY = result[1]/w;
-		this.viewZ = result[2]/w;
 
+	}
+	
+	public void ViewTransformFinalize(){
+		viewX /= viewW;
+		viewY /= viewW;
+		viewZ /= viewW;
 	}
 
 	@Override
 	public String toString() {
 		return "Vert3 [viewX=" + viewX + ", viewY=" + viewY + ", viewZ="
-				+ viewZ + ", x=" + x + ", y=" + y + ", z=" + z + "]";
+				+ viewZ + ", viewW=" + viewW + ", x=" + x + ", y=" + y + ", z="
+				+ z + "]";
 	}
+
+	public boolean sameAs(Vert3 other){
+		if(other==null){
+			return false;
+		}
+		
+		if(viewX != other.viewX){
+			return false;
+		}if(viewY != other.viewY){
+			return false;
+		}if(viewZ != other.viewZ){
+			return false;
+		}if(viewW != other.viewW){
+			return false;
+		}if(x != other.x){
+			return false;
+		}if(y != other.y){
+			return false;
+		}if(z != other.z){
+			return false;
+		}
+		
+		return true;
+	}
+	
+	
 	
 	
 }

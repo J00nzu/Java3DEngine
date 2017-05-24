@@ -72,11 +72,11 @@ public class ViewportTest {
 		
 		GraphicsObj pyramid3 = pyramid.copy();
 		
-		pyramid.transform.position = new Vector3(0,-5,-10);
+		pyramid.transform.position = new Vector3(0,-1,10);
 		
 		pyramid.transform.scale = new Vector3(1,1,1);
 		
-		pyramid2.transform.position = new Vector3(2,-5,-20);
+		pyramid2.transform.position = new Vector3(2,-1,3);
 		
 		pyramid2.transform.scale = new Vector3(1f, 1f, 1f);
 		
@@ -110,7 +110,7 @@ public class ViewportTest {
 		while(true){
 			g.clearRect(0, 0, width, height);
 			
-			pyramid2.transform.position.x += 0.03;
+			pyramid2.transform.position.z += 0.001;
 			//cam.transform.rotation.z+=0.005;
 			//pyramid.transform.rotation.z+=0.005;
 			pyramid3.transform.rotation.y+=0.01;

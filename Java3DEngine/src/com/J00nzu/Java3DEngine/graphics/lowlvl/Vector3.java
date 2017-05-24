@@ -76,6 +76,5 @@ public class Vector3 {
 		return "Vector3 [x=" + x + ", y=" + y + ", z=" + z + "]";
 	}
 	
-	
 
 }
