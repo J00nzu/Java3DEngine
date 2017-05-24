@@ -1,21 +1,32 @@
 package com.J00nzu.Java3DEngine.graphics.lowlvl;
 import java.util.ArrayList;
+import java.util.Collection;
 
 
-public class Obj {
+public abstract class Obj {
 	
 	private Obj parent;
 	
 	private ArrayList<Obj> children = new ArrayList<Obj>();
-	private ArrayList<Vert3> verticies = new ArrayList<Vert3>();
-	private ArrayList<Face> faces = new ArrayList<Face>();
 	
-	public Vector3 Position;
-	public Vector3 Scale;
-	public Vector3 Rotation;
+	public Transform transform = new Transform();
+	
+	public Obj(){
+		
+	}
 
-	
-	
+	public void AddChild(Obj child){
+		if(child != null){
+			this.children.add(child);
+			
+			if(child.parent!=null){
+				child.parent.RemoveChild(child);
+			}
+			
+			child.parent = this;
+		}
+	}
+
 	void RemoveChild (Obj child){
 		children.remove(child);
 	}

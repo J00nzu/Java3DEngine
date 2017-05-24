@@ -22,10 +22,24 @@ public class Transformatrix {
 	}
 	
 	public Transformatrix(Matrix4 matrix) {
-		mat4 = matrix;
+		if(matrix!=null){
+			mat4 = matrix;
+		}
+	}
+	
+	public void multiply(Transformatrix other){
+		if(other==null){
+			return;
+		}
+		
+		this.mat4 = mat4.Multiply(other.mat4);
 	}
 
 	public void translate(Vector3 translation) {
+		if(translation==null){
+			return;
+		}
+		
 		Matrix4 transMatrix = baseMatrix.Clone();
 
 		transMatrix.matrix[TRANS][X] = translation.x;
@@ -36,6 +50,9 @@ public class Transformatrix {
 	}
 
 	public void rotate(Vector3 rotation) {
+		if(rotation==null){
+			return;
+		}
 
 		if (rotation.x != 0) {
 			Matrix4 rotMatrix = baseMatrix.Clone();
@@ -75,6 +92,10 @@ public class Transformatrix {
 	}
 
 	public void scale(Vector3 scaling) {
+		if(scaling==null){
+			return;
+		}
+		
 		Matrix4 scaleMatrix = baseMatrix.Clone();
 
 		scaleMatrix.matrix[X][X] = scaling.x;

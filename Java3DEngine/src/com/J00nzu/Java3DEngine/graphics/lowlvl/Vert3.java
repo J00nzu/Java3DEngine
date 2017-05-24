@@ -2,9 +2,9 @@ package com.J00nzu.Java3DEngine.graphics.lowlvl;
 
 public class Vert3 extends Vector3{
 	
-	float viewX;
-	float viewY;
-	float viewZ;
+	public float viewX;
+	public float viewY;
+	public float viewZ;
 	
 	public Vert3(Vector3 toClone) {
 		super(toClone);
@@ -28,9 +28,11 @@ public class Vert3 extends Vector3{
 			}
 		}
 		
-		this.x = result[0];
-		this.y = result[1];
-		this.z = result[2];
+		float w = result[3];
+		
+		this.x = result[0]/w;
+		this.y = result[1]/w;
+		this.z = result[2]/w;
 
 	}
 	
@@ -44,8 +46,18 @@ public class Vert3 extends Vector3{
 			}
 		}
 		
-		this.viewX = result[0];
-		this.viewY = result[1];
-		this.viewZ = result[2];
+		float w = result[3];
+		
+		this.viewX = result[0]/w;
+		this.viewY = result[1]/w;
+		this.viewZ = result[2]/w;
 	}
+
+	@Override
+	public String toString() {
+		return "Vert3 [viewX=" + viewX + ", viewY=" + viewY + ", viewZ="
+				+ viewZ + ", x=" + x + ", y=" + y + ", z=" + z + "]";
+	}
+	
+	
 }
