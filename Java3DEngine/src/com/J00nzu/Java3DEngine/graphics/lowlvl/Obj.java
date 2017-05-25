@@ -15,6 +15,8 @@ public abstract class Obj {
 		
 	}
 	
+	
+	//TODO Fix this dog. Doesn't account for rotation
 	public Vector3 getWorldPosition(){
 		Obj curr = this;
 		Vector3 worldPos = new Vector3();
