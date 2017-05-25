@@ -6,7 +6,8 @@ public abstract class Camera extends Obj{
 		transform.scale = new Vector3(-1, 1, 1);
 	}
 	
-	
+	public abstract float getNear();
+	public abstract float getFar();
 	public abstract Transformatrix GetProjectionMatrix();
 
 }

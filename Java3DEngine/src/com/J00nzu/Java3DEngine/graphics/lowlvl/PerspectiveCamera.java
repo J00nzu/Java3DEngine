@@ -3,7 +3,7 @@ package com.J00nzu.Java3DEngine.graphics.lowlvl;
 public class PerspectiveCamera extends Camera{
 	
 	float FOV = 90;
-	float far = 1000;
+	float far = 20;
 	float near = 1f;
 	float displayRatio = 800f/600f;
 	
@@ -63,6 +63,20 @@ public class PerspectiveCamera extends Camera{
         
         return matrix;
     }
+
+
+
+	@Override
+	public float getNear() {
+		return near;
+	}
+
+
+
+	@Override
+	public float getFar() {
+		return far;
+	}
 	
 	
 	

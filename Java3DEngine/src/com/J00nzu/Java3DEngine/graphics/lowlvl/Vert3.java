@@ -1,22 +1,34 @@
 package com.J00nzu.Java3DEngine.graphics.lowlvl;
 
-public class Vert3 extends Vector3{
+public class Vert3{
+	
+	public float x, y, z;
 	
 	public float viewX;
 	public float viewY;
 	public float viewZ;
 	public float viewW = 1;
 	
-	public Vert3(Vector3 toClone) {
-		super(toClone);
-	}
-	
-	public Vert3(float x, float y, float z) {
-		super(x,y,z);
+	public Vert3(Vert3 toClone) {
+		super();
+		this.x = toClone.x;
+		this.y = toClone.y;
+		this.z = toClone.z;
+		
 	}
 	
 	public Vert3(){
 		super();
+		this.x = 0;
+		this.y = 0;
+		this.z = 0;
+	}
+	
+	public Vert3(float x, float y, float z) {
+		super();
+		this.x = x;
+		this.y = y;
+		this.z = z;
 	}
 	
 	public void ApplyTransformatrix(Transformatrix transform){
@@ -29,12 +41,12 @@ public class Vert3 extends Vector3{
 			}
 		}
 		
-		float w = result[3];
+		//float w = result[3];
 		
 		
-		this.x = result[0]/w;
-		this.y = result[1]/w;
-		this.z = result[2]/w;
+		this.x = result[0];
+		this.y = result[1];
+		this.z = result[2];
 
 	}
 	
@@ -50,13 +62,14 @@ public class Vert3 extends Vector3{
 		
 		this.viewW = result[3];
 		
-		this.viewX = result[0]/viewW;
-		this.viewY = result[1]/viewW;
-		this.viewZ = result[2]/viewW;
+		this.viewX = result[0];
+		this.viewY = result[1];
+		this.viewZ = result[2];
 		
 
 	}
 	
+
 	public void ViewTransformFinalize(){
 		viewX /= viewW;
 		viewY /= viewW;

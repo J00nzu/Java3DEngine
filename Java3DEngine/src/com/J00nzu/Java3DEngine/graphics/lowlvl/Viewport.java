@@ -70,6 +70,8 @@ public class Viewport {
 			for(Vert3 vert : go.getVerticies()){	
 				vert.ViewTransform(transformatrix);
 				System.out.println(vert);
+				
+				vert.ViewTransformFinalize();
 			}
 			
 			for(Face face : go.getFaces()){
@@ -90,6 +92,8 @@ public class Viewport {
 				}
 				
 			}
+			
+			
 			
 		}
 
